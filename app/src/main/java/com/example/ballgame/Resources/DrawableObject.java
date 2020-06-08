@@ -13,7 +13,7 @@ public abstract class DrawableObject implements DrawableObjectInterface {
 
     @Override
     public void draw(Canvas c, Paint p) {
-
+    
     }
 
     @Override

@@ -6,7 +6,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.util.Log;
+
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.WindowManager;
 
 import com.example.ballgame.activities.EndGame;
@@ -15,6 +18,7 @@ import java.util.ArrayList;
 
 public class GamePlay extends DrawingView {
     //Class-Scope Variables
+    public int movement = 0;
     //Starting Values
     protected int startSpeed;
     protected int currentSpeed;
@@ -24,12 +28,14 @@ public class GamePlay extends DrawingView {
     protected int numberOfLivesLeft;
     protected int numberOfBrickRows;
     protected float EPSILON = 0.01f;
+
     //Logic Control Variables
     protected boolean gameStarted = false;
     protected float windowWidth;
     protected float windowHeight;
     protected int score = 0;
     protected int scoreMultiplier = 10;
+
     //BrickStarting Points
     float startX = 0;
     float startY = 50;
@@ -110,8 +116,17 @@ public class GamePlay extends DrawingView {
 
     }
 
+    protected void checkMovePlatform(){
+        Log.i("Movement: ", String.valueOf(this.movement));
+        if(this.movement != 0) {
+            movePlatform();
+            this.movement = 0;
+        }
+    }
+
     protected void onUpdate() {
         //Move the Platform (using sensor)
+        checkMovePlatform();
         //movePlatform();
         //Check for Collision with Bricks
         checkBrickCollision();
@@ -123,7 +138,6 @@ public class GamePlay extends DrawingView {
 
 
     //Game Logic
-
     protected void startGame() {
         pinBall.direction = new V2(currentSpeed, currentSpeed);
         pinBall.move();
@@ -208,11 +222,11 @@ public class GamePlay extends DrawingView {
 
     }
 
-    protected void movePlatform(boolean moveRight) {
+    protected void movePlatform() {
+
         int currentStep = currentSpeed;
-        //Move Left
-        if (!moveRight)
-            currentStep *= -1;
+        currentStep *= this.movement;
+
         if ((userPlatform.getStartPoint().x + userPlatform.getWidth() + currentStep) > windowWidth ||
                 userPlatform.getStartPoint().x + currentStep < 0) {
             //Move back if going off screen
