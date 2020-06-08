@@ -8,9 +8,6 @@ import android.graphics.Typeface;
 
 import com.example.ballgame.R;
 
-/**
- * Created by michaelwasher on 4/10/15.
- */
 public class MainIntro extends DrawingView {
 
     Context context;

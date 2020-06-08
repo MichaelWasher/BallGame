@@ -10,9 +10,6 @@ import com.example.ballgame.MyApplication;
 import com.example.ballgame.R;
 import com.example.ballgame.interfaces.Collider;
 
-/**
- * Created by michaelwasher on 17/10/15.
- */
 public class Platform extends DrawableRectangle {
 
     public Platform(Context context, V2 corner, float width, float height) {

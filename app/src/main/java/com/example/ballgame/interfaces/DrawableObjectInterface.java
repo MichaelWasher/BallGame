@@ -1,7 +1,4 @@
 package com.example.ballgame.interfaces;
-/**
- * Created by michaelwasher on 30/09/15.
- */
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

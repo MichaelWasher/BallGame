@@ -7,9 +7,6 @@ import android.graphics.Rect;
 
 import com.example.ballgame.interfaces.DrawableObjectInterface;
 
-/**
- * Created by michaelwasher on 1/10/15.
- */
 public abstract class DrawableObject implements DrawableObjectInterface {
 
     protected Point currentPosition;

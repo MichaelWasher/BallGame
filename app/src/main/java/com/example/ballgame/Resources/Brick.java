@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 
 import com.example.ballgame.MyApplication;
-import com.example.ballgame.interfaces.Collider;
 import com.example.ballgame.R;
 
 public class Brick extends DrawableRectangle {
@@ -21,7 +20,7 @@ public class Brick extends DrawableRectangle {
         this(MyApplication.getAppContext(), corner, width, height);
     }
     private void drawSprite(Canvas c){
-        Drawable brickSprite = context.getDrawable(R.drawable.ic_brown_brick);
+        Drawable brickSprite = context.getDrawable(R.drawable.ic_brown_white_brick);
         brickSprite.setBounds((int)this.a.x, (int)this.a.y, (int)this.d.x, (int)this.d.y);
         brickSprite.draw(c);
     }
