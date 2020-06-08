@@ -3,17 +3,18 @@ package com.example.ballgame.Resources;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.util.Log;
 
 import android.view.Display;
-import android.view.KeyEvent;
 import android.view.WindowManager;
 
 import com.example.ballgame.R;
 import com.example.ballgame.activities.EndGame;
+import com.example.ballgame.uiElements.Ball;
+import com.example.ballgame.uiElements.Brick;
+import com.example.ballgame.uiElements.Platform;
 
 import java.util.ArrayList;
 

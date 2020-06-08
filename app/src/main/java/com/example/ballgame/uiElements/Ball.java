@@ -1,9 +1,10 @@
-package com.example.ballgame.Resources;
+package com.example.ballgame.uiElements;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.example.ballgame.Resources.V2;
 import com.example.ballgame.interfaces.Collider;
 
 public class Ball extends DrawableObject implements Collider {

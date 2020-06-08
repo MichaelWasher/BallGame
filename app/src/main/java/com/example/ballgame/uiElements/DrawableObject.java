@@ -1,4 +1,4 @@
-package com.example.ballgame.Resources;
+package com.example.ballgame.uiElements;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -13,7 +13,7 @@ public abstract class DrawableObject implements DrawableObjectInterface {
 
     @Override
     public void draw(Canvas c, Paint p) {
-    
+
     }
 
     @Override

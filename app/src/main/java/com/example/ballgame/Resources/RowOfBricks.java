@@ -3,7 +3,7 @@ package com.example.ballgame.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.example.ballgame.Resources.Brick;
+import com.example.ballgame.uiElements.Brick;
 
 import java.util.ArrayList;
 
@@ -42,7 +42,7 @@ public class RowOfBricks {
 	}
 
 	private Brick createBrick(V2 start, float width, float height) {
-		return new Brick(new V2(start.x, start.y), width, height);
+		return BrickBuilder.newRandomBrick(new V2(start.x, start.y), width, height);
 	}
 
 	private void populateBrickRow(ArrayList<Brick> brickRow) {

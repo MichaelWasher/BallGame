@@ -6,7 +6,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 
-import com.example.ballgame.R;
+import com.example.ballgame.uiElements.Ball;
+import com.example.ballgame.uiElements.Brick;
 
 public class MainIntro extends DrawingView {
 

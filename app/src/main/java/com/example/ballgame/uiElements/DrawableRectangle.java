@@ -1,15 +1,11 @@
-package com.example.ballgame.Resources;
+package com.example.ballgame.uiElements;
 
 //Import Statements
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 
 import com.example.ballgame.MyApplication;
-import com.example.ballgame.R;
+import com.example.ballgame.Resources.V2;
 import com.example.ballgame.interfaces.Collider;
 
 public abstract class DrawableRectangle extends DrawableObject implements Collider {
