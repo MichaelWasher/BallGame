@@ -12,6 +12,7 @@ import android.view.Display;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
+import com.example.ballgame.R;
 import com.example.ballgame.activities.EndGame;
 
 import java.util.ArrayList;
@@ -19,7 +20,6 @@ import java.util.ArrayList;
 public class GamePlay extends DrawingView {
     //Class-Scope Variables
     public int movement = 0;
-    
     //Starting Values
     protected int startSpeed;
     protected int currentSpeed;
@@ -45,13 +45,6 @@ public class GamePlay extends DrawingView {
     ArrayList<RowOfBricks> rowsOfBricks;
     Ball pinBall;
     Platform userPlatform;
-
-    //COLORS
-    int BRICK_COLOR = Color.BLACK;
-    int BALL_COLOR = Color.BLUE;
-    int PLATFORM_COLOR = Color.RED;
-    int FONT_COLOR = Color.BLACK;
-    int BACKGROUND_COLOR = Color.CYAN;
 
     //BRICKS
     int NUM_OF_BRICKS_PER_ROW = 10;
@@ -89,28 +82,33 @@ public class GamePlay extends DrawingView {
     protected void onDraw(Canvas canvas) {
 
         //ColorBackground
-        paint.setColor(BACKGROUND_COLOR);
+        paint.setColor(getResources().getColor(
+                R.color.backgroundColor,null));
         canvas.drawPaint(paint);
 
         //Display Lives and Score
-        paint.setColor(FONT_COLOR);
+        paint.setColor(getResources().getColor(
+                R.color.textColor,null));
         paint.setTextSize(FONT_SIZE);
         paint.setTypeface(Typeface.SANS_SERIF);
 
         canvas.drawText(String.format(SCORE_TEXT, score), TEXT_PADDING, FONT_SIZE, paint);
         canvas.drawText(String.format(LIVES_TEXT, numberOfLivesLeft), (windowWidth / 2) + TEXT_PADDING, FONT_SIZE, paint);
 
-        paint.setColor(BRICK_COLOR);
+        paint.setColor(getResources().getColor(
+            R.color.brickColor,null));
 
         //Draw all rows of bricks
         for (RowOfBricks rob : rowsOfBricks) {
             rob.draw(canvas, paint);
         }
         //Draw Platform
-        paint.setColor(PLATFORM_COLOR);
+        paint.setColor(getResources().getColor(
+                R.color.platformColor,null));
         userPlatform.draw(canvas, paint);
         //Draw ping ball
-        paint.setColor(BALL_COLOR);
+        paint.setColor(getResources().getColor(
+                R.color.ballColor,null));
         pinBall.draw(canvas, paint);
         //Update Game
         if (gameStarted)

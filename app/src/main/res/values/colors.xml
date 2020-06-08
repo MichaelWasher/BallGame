@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="brickColor">#000000</color>
+    <color name="ballColor">#0000FF</color>
+    <color name="platformColor">#FF0000</color>
+    <color name="textColor">#000000</color>
+    <color name="backgroundColor">#00FFFF</color>
 </resources>
