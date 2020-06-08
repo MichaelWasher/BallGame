@@ -10,7 +10,6 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.example.ballgame.activities.EndGame;
-import com.example.ballgame.Resources.LevelStartInformation;
 
 import java.util.ArrayList;
 
@@ -54,8 +53,9 @@ public class GamePlay extends DrawingView {
 
     //Platform
     float PLATFORM_WIDTH = 250;
-    float PLATFORM_HEIGHT = 10;
-    float PLATFORM_PADDING = 100;
+    float PLATFORM_HEIGHT = 30;
+    float PLATFORM_PADDING_BOTTOM = 400;
+
     //Text on Page
     float TEXT_PADDING = 10;
     int FONT_SIZE = 40;
@@ -252,7 +252,8 @@ public class GamePlay extends DrawingView {
         }
 
         //Create Platform
-        userPlatform = new Platform(new V2((windowWidth / 2) - (PLATFORM_WIDTH / 2), windowHeight - PLATFORM_PADDING
+        userPlatform = new Platform(
+                new V2((windowWidth / 2) - (PLATFORM_WIDTH / 2), windowHeight - PLATFORM_PADDING_BOTTOM
         ), PLATFORM_WIDTH, PLATFORM_HEIGHT);
         //Create PlayerBall
         pinBall = new Ball(new V2(userPlatform.getStartPoint().x + (userPlatform.getWidth() / 2),

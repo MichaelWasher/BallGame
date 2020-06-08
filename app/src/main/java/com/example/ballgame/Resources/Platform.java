@@ -19,6 +19,11 @@ public class Platform extends DrawableRectangle {
         this(MyApplication.getAppContext(), corner, width, height);
     }
 
+    private void drawSprite(Canvas c){
+        Drawable brickSprite = context.getDrawable(R.drawable.ic_platform);
+        brickSprite.setBounds((int)this.a.x, (int)this.a.y, (int)this.d.x, (int)this.d.y);
+        brickSprite.draw(c);
+    }
     private void drawPaint(Canvas c, Paint p){
         int originalColor = p.getColor();
         c.drawRect(a.x, a.y, d.x, d.y, p);
@@ -29,7 +34,11 @@ public class Platform extends DrawableRectangle {
     // Draw the rectangle
     @Override
     public void draw(Canvas c, Paint p) {
-        drawPaint(c, p);
+        if(this.context != null){
+            drawSprite(c);
+        }else{
+            drawPaint(c, p);
+        }
     }
 
 }

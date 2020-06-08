@@ -12,6 +12,8 @@ import com.example.ballgame.R;
 
 public class Brick extends DrawableRectangle {
 
+    final protected int BRICK_TYPE = R.drawable.ic_brown_white_brick;
+
     // Constructor
     public Brick(Context context, V2 corner, float width, float height) {
         super(context, corner, width, height);
@@ -20,7 +22,7 @@ public class Brick extends DrawableRectangle {
         this(MyApplication.getAppContext(), corner, width, height);
     }
     private void drawSprite(Canvas c){
-        Drawable brickSprite = context.getDrawable(R.drawable.ic_brown_white_brick);
+        Drawable brickSprite = context.getDrawable(BRICK_TYPE);
         brickSprite.setBounds((int)this.a.x, (int)this.a.y, (int)this.d.x, (int)this.d.y);
         brickSprite.draw(c);
     }
