@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class GamePlay extends DrawingView {
     //Class-Scope Variables
     public int movement = 0;
+    
     //Starting Values
     protected int startSpeed;
     protected int currentSpeed;
@@ -38,17 +39,20 @@ public class GamePlay extends DrawingView {
 
     //BrickStarting Points
     float startX = 0;
-    float startY = 50;
+    float startY = 100;
+
     //Displayable Objects
     ArrayList<RowOfBricks> rowsOfBricks;
     Ball pinBall;
     Platform userPlatform;
+
     //COLORS
     int BRICK_COLOR = Color.BLACK;
     int BALL_COLOR = Color.BLUE;
     int PLATFORM_COLOR = Color.RED;
     int FONT_COLOR = Color.BLACK;
     int BACKGROUND_COLOR = Color.CYAN;
+
     //BRICKS
     int NUM_OF_BRICKS_PER_ROW = 10;
     float BRICK_HEIGHT = 100;
@@ -63,8 +67,8 @@ public class GamePlay extends DrawingView {
     float PLATFORM_PADDING_BOTTOM = 400;
 
     //Text on Page
-    float TEXT_PADDING = 10;
-    int FONT_SIZE = 40;
+    float TEXT_PADDING = 30;
+    int FONT_SIZE = 70;
     //String for Text
     String SCORE_TEXT = "SCORE: %d";
     String LIVES_TEXT = "Lives: %s";
@@ -127,7 +131,7 @@ public class GamePlay extends DrawingView {
     protected void onUpdate() {
         //Move the Platform (using sensor)
         checkMovePlatform();
-        //movePlatform();
+
         //Check for Collision with Bricks
         checkBrickCollision();
         checkBoundaryCollision();
