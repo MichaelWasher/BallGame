@@ -23,10 +23,13 @@ public class MainIntro extends DrawingView {
         paint.setStyle(Paint.Style.FILL);
         paint.setTypeface(Typeface.SANS_SERIF);
         paint.setTextSize(50);
+
+        this.ball = new Ball(this.context, new V2(100,100),50);
+        this.brick = new Brick(this.context, new V2(10,10),50,50);
     }
     //Initializing Balls
-    Ball ball = new Ball(new V2(100,100),50);
-    Brick brick = new Brick(new V2(10,10),50,50);
+    Ball ball = null;
+    Brick brick = null;
 
     float dx = 10;
     float dy = 10;

@@ -30,7 +30,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".EndGame"
+            android:name=".activities.EndGame"
             android:label="@string/title_activity_end_game"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>

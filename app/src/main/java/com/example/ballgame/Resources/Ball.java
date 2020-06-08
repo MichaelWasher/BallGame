@@ -1,5 +1,6 @@
 package com.example.ballgame.Resources;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
@@ -9,14 +10,18 @@ public class Ball extends DrawableObject implements Collider {
     private V2 m;      // The middle
     private float s;   // The radius
     public V2 direction;
+    private Context context;
     ////////////////// PUBLIC METHODS ////////////////////////////////////
 
     // Constructor;
-    public Ball(V2 middle, float radius) {
+    public Ball(Context context, V2 middle, float radius) {
+        this.context = context;
         m = middle;
         s = radius;
     }
-
+    public Ball(V2 middle, float radius) {
+        this(null, middle, radius);
+    }
     // Reflection of a ball against the circle - updates 'direction'
     @Override public void reflectBall(V2 centre, V2 direction, float radius) {
         if (!intersectBall(centre, radius)) {

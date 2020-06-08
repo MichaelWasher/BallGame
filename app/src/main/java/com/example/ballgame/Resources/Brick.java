@@ -1,17 +1,29 @@
 package com.example.ballgame.Resources;
 
 //Import Statements
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+
 import com.example.ballgame.interfaces.Collider;
+import com.example.ballgame.R;
 
 public class Brick extends DrawableObject implements Collider {
     private V2 a, b, c, d;          // The corners
     private V2 pab, pbd, pdc, pca;  // Perpendiculars to the sides
     private float boarderWidth = 5;
-
+    Context context;
+    // TODO Rewrite this whole class to use real names Only 4 valeus are need, top left bottom right
+    // Not drawing misc shapes
     ///////////////////// PRIVATE HELPER METHODS ////////////////////////
+    //TODO this is reusable Debug code. Remvoe when complete
+//    Drawable d = getResources().getDrawable(R.drawable.foobar, null);
+//d.setBounds(left, top, right, bottom);
+//d.draw(canvas);
+
+    // The Brick is R.drawable.brick
 
     // Calculate reflection on one edge
     private boolean reflectLine(V2 centre, V2 direction, float radius, V2 p, V2 q, V2 ppq) {
@@ -76,7 +88,7 @@ public class Brick extends DrawableObject implements Collider {
     ////////////////// PUBLIC METHODS ////////////////////////////////////
 
     // Constructor
-    public Brick(V2 corner, float width, float height) {
+    public Brick(Context context, V2 corner, float width, float height) {
         a = corner;
         b = V2.add(a, new V2(width, 0));
         c = V2.add(a, new V2(0, height));
@@ -85,6 +97,10 @@ public class Brick extends DrawableObject implements Collider {
         pbd = V2.subtract(b, a).normalize();
         pdc = pab.negate();
         pca = pbd.negate();
+        this.context = context;
+    }
+    public Brick(V2 corner, float width, float height) {
+        this(null, corner, width, height);
     }
 
     // Reflection of a ball against the rectangle - updates 'direction'
@@ -159,15 +175,26 @@ public class Brick extends DrawableObject implements Collider {
         d.x += x;
         d.y += y;
     }
+
+    private void drawSprite(Canvas c){
+        Drawable brickSprite = context.getDrawable(R.drawable.brick);
+        brickSprite.setBounds((int)a.x, (int)a.y, (int)d.x, (int)d.y);
+        brickSprite.draw(c);
+    }
+    private void drawPaint(Canvas c, Paint p){
+        int originalColor = p.getColor();
+        c.drawRect(a.x, a.y, d.x, d.y, p);
+        p.setColor(Color.WHITE);
+                c.drawRect(a.x + boarderWidth, a.y + boarderWidth, d.x - boarderWidth, d.y - boarderWidth, p );
+        p.setColor(originalColor);
+    }
     // Draw the rectangle
     @Override
     public void draw(Canvas c, Paint p) {
-        int originalColor = p.getColor();
-        //Draw square and boarder
-        c.drawRect(a.x, a.y, d.x, d.y, p);
-        p.setColor(Color.WHITE);
-        c.drawRect(a.x + boarderWidth, a.y + boarderWidth, d.x - boarderWidth, d.y - boarderWidth, p );
-        //Reset Color Value
-        p.setColor(originalColor);
+        if(this.context != null){
+            drawSprite(c);
+        }else{
+            drawPaint(c, p);
+        }
     }
 }
