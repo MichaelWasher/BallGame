@@ -20,7 +20,7 @@ public class LevelSelector extends AppCompatActivity {
 
 
         //Setting Button On Click Methods
-        final Button easyButton = (Button) findViewById(R.id.LevelSelectorEasy);
+        final Button easyButton = (Button) findViewById(R.id.levelselector1);
         easyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
@@ -28,7 +28,7 @@ public class LevelSelector extends AppCompatActivity {
             }
         });
 
-        final Button mediumButton = (Button) findViewById(R.id.LevelSelectorMedium);
+        final Button mediumButton = (Button) findViewById(R.id.levelselector2);
         mediumButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
@@ -37,7 +37,7 @@ public class LevelSelector extends AppCompatActivity {
         });
 
 
-        final Button hardButton = (Button) findViewById(R.id.LevelSelectorHard);
+        final Button hardButton = (Button) findViewById(R.id.levelselector3);
         hardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click

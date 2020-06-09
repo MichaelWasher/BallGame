@@ -13,16 +13,19 @@ public class BrickBuilder {
 
     public static Brick newRandomBrick(V2 corner, float width, float height)
     {
-        int randomNumber = rnd.nextInt( 100);
+        //Debug with Test Brick
+        return new BrownWhiteBrick(corner, width, height);
 
-        if(randomNumber < 10) {
-            return new GreenBlackBrick(corner, width, height);
-        }else if(randomNumber < 30) {
-            return new GreenWhiteBrick(corner, width, height);
-        }else if(randomNumber < 50) {
-            return new BrownBlackBrick(corner, width, height);
-        }else {
-            return new BrownWhiteBrick(corner, width, height);
-        }
+//        int randomNumber = rnd.nextInt( 100);
+//
+//        if(randomNumber < 10) {
+//            return new GreenBlackBrick(corner, width, height);
+//        }else if(randomNumber < 30) {
+//            return new GreenWhiteBrick(corner, width, height);
+//        }else if(randomNumber < 50) {
+//            return new BrownBlackBrick(corner, width, height);
+//        }else {
+//            return new BrownWhiteBrick(corner, width, height);
+//        }
     }
 }

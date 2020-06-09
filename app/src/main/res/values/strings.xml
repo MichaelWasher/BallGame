@@ -6,11 +6,9 @@
     <string name="title_activity_end_game">EndGame</string>
     <string name="next">next</string>
     <string name="previous">previous</string>
-    <string name="first_fragment_label">first_fragment_label</string>
-    <string name="hello_first_fragment">hello_first_fragment</string>
-    <string name="second_fragment_label">second_fragment_label</string>
     <string name="intro_title">Welcome to Bricker!</string>
     <string name="intro_subtitle">Tap Anywhere to Continue</string>
-
+    <string name="game_state_text_placeholder">Score: 10 | Lives: 10</string>
+    <string name="game_state_text_format">Score: %d | Lives: %d</string>
 
 </resources>

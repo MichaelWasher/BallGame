@@ -12,22 +12,26 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.ballgame.R;
 import com.example.ballgame.Resources.GamePlay;
 import com.example.ballgame.Resources.LevelStartInformation;
 
 public class Game extends AppCompatActivity {
 
-    GamePlay gp;
+    GamePlay mainGame;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game);
+
         setupSensor();
         //Gather Level Information
         Intent i = getIntent();
         LevelStartInformation lsi = (LevelStartInformation)i.getSerializableExtra("LevelStartInformation");
         //Display Game Play
-        gp = new GamePlay(this, lsi);
-        setContentView(gp);
+        this.mainGame = (GamePlay)findViewById(R.id.gameWindow);
+        this.mainGame.startGame(lsi);
+
         //Keep display awake
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -37,10 +41,10 @@ public class Game extends AppCompatActivity {
         Log.i("key pressed", String.valueOf(event.getKeyCode()));
         if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT && event.getAction() == KeyEvent.ACTION_DOWN){
             Log.i("key pressed", "GO Left");
-            gp.movement = -10;
+            this.mainGame.movement = -10;
         }else if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT && event.getAction() == KeyEvent.ACTION_DOWN){
             Log.i("key pressed", "GO Right");
-            gp.movement = 10;
+            this.mainGame.movement = 10;
         }
         return super.dispatchKeyEvent(event);
     }
@@ -58,7 +62,7 @@ public class Game extends AppCompatActivity {
             public void onSensorChanged(SensorEvent sensorEvent) {
                 // More code goes here
                 float yRotationValue = sensorEvent.values[0] * -1;
-                gp.movement = (int)yRotationValue;
+                mainGame.movement = (int)yRotationValue;
             }
 
             @Override

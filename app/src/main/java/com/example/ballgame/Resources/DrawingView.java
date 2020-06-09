@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.util.AttributeSet;
 import android.view.View;
 
 public class DrawingView extends View {
@@ -18,8 +19,11 @@ public class DrawingView extends View {
         paint.setTypeface(Typeface.SANS_SERIF);
         paint.setTextSize(50);
     }
+    public DrawingView(Context context, AttributeSet attr) {
+        super(context, attr);
+    }
 
-    int x = 0;
+        int x = 0;
     int y = 0;
     // Called every time the screen is redrawn
     @Override

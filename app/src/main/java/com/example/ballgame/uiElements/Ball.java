@@ -12,6 +12,7 @@ public class Ball extends DrawableObject implements Collider {
     private float s;   // The radius
     public V2 direction;
     private Context context;
+
     ////////////////// PUBLIC METHODS ////////////////////////////////////
 
     // Constructor;

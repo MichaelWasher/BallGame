@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LovelyView">
+        <attr name="circleColor" format="color" />
+        <attr name="circleLabel" format="string"></attr>
+        <attr name="labelColor" format="color"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="LevelSelector">
+        <attr name="levelNumber" format="integer" />
+        <attr name="starLevel" format="integer"></attr>
+    </declare-styleable>
+    <declare-styleable name="Platform">
+    </declare-styleable>
+</resources>

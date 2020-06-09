@@ -4,17 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.graphics.Typeface;
+import android.util.AttributeSet;
 import android.util.Log;
 
 import android.view.Display;
 import android.view.WindowManager;
+import android.widget.TextView;
 
+import com.example.ballgame.MyApplication;
 import com.example.ballgame.R;
 import com.example.ballgame.activities.EndGame;
 import com.example.ballgame.uiElements.Ball;
 import com.example.ballgame.uiElements.Brick;
-import com.example.ballgame.uiElements.Platform;
+import com.example.ballgame.views.Platform;
 
 import java.util.ArrayList;
 
@@ -55,46 +57,45 @@ public class GamePlay extends DrawingView {
     float PINBALL_RADIUS = 10;
     float PINBALL_PADDING = 30;
 
-    //Platform
-    float PLATFORM_WIDTH = 250;
-    float PLATFORM_HEIGHT = 30;
-    float PLATFORM_PADDING_BOTTOM = 400;
-
-    //Text on Page
-    float TEXT_PADDING = 30;
-    int FONT_SIZE = 70;
     //String for Text
-    String SCORE_TEXT = "SCORE: %d";
+    String SCORE_TEXT = "Score: %d";
     String LIVES_TEXT = "Lives: %s";
-
+    Context context;
 
     public GamePlay(Context context, LevelStartInformation startInfo) {
         super(context);
+        this.context = context;
+    }
+    public GamePlay(Context context, AttributeSet attr) {
+        super(context, attr);
+        this.context = context;
+    }
+
+    public void startGame(LevelStartInformation startInfo)
+    {
         //Initialize all Class-Scope values
-        setStartInformation(startInfo, context);
+        setStartInformation(startInfo, this.context);
         rowsOfBricks = new ArrayList<RowOfBricks>();
         createLevel();
         startGame();
     }
 
-
     //Game Loop
+    protected String getScoreText(int newScore, int newLifeCount) {
+
+        String scorePlaceholder = context.getResources().getString(R.string.game_state_text_format);
+        return String.format(scorePlaceholder, newScore, newLifeCount);
+    }
 
     protected void onDraw(Canvas canvas) {
+        //Get Elements
+        TextView scoreTextView = (TextView) findViewById(R.id.scoreTextView);
+
 
         //ColorBackground
         paint.setColor(getResources().getColor(
                 R.color.backgroundColor,null));
         canvas.drawPaint(paint);
-
-        //Display Lives and Score
-        paint.setColor(getResources().getColor(
-                R.color.textColor,null));
-        paint.setTextSize(FONT_SIZE);
-        paint.setTypeface(Typeface.SANS_SERIF);
-
-        canvas.drawText(String.format(SCORE_TEXT, score), TEXT_PADDING, FONT_SIZE, paint);
-        canvas.drawText(String.format(LIVES_TEXT, numberOfLivesLeft), (windowWidth / 2) + TEXT_PADDING, FONT_SIZE, paint);
 
         paint.setColor(getResources().getColor(
             R.color.brickColor,null));
@@ -106,7 +107,7 @@ public class GamePlay extends DrawingView {
         //Draw Platform
         paint.setColor(getResources().getColor(
                 R.color.platformColor,null));
-        userPlatform.draw(canvas, paint);
+        userPlatform.draw(canvas);
         //Draw ping ball
         paint.setColor(getResources().getColor(
                 R.color.ballColor,null));
@@ -114,9 +115,16 @@ public class GamePlay extends DrawingView {
         //Update Game
         if (gameStarted)
             onUpdate();
+
         //Queue Redraw
         invalidate();
-
+        if(scoreTextView != null) {
+            //Display Lives and Score
+            scoreTextView.setText(getScoreText(score,numberOfLivesLeft));
+            scoreTextView.draw(canvas);
+            scoreTextView.invalidate();
+        }
+        // TODO Get all 'actual' elemtns on the page and redraw
     }
 
     protected void checkMovePlatform(){
@@ -269,9 +277,7 @@ public class GamePlay extends DrawingView {
         }
 
         //Create Platform
-        userPlatform = new Platform(
-                new V2((windowWidth / 2) - (PLATFORM_WIDTH / 2), windowHeight - PLATFORM_PADDING_BOTTOM
-        ), PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        userPlatform = new Platform(MyApplication.getAppContext(), null);
         //Create PlayerBall
         pinBall = new Ball(new V2(userPlatform.getStartPoint().x + (userPlatform.getWidth() / 2),
                 userPlatform.getStartPoint().y - PINBALL_RADIUS - PINBALL_PADDING), PINBALL_RADIUS);

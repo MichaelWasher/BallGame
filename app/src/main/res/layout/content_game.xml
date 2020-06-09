@@ -11,4 +11,39 @@
     tools:context="com.example.ballgame.activities.Game">
 
 
+
+
+    <TextView
+        android:id="@+id/scoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:textSize="35dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/game_state_text_placeholder"
+        android:typeface="sans"
+        />
+
+    <com.example.ballgame.Resources.GamePlay
+        android:id="@+id/gameWindow"
+        android:layout_width="wrap_content"
+        android:layout_height="510dp"
+        android:layout_below="@+id/scoreTextView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="16dp" />
+
+    <com.example.ballgame.views.Platform
+        android:id="@+id/platform"
+        android:layout_width="120dp"
+        android:layout_height="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+        android:layout_centerHorizontal="true"
+    />
+
 </RelativeLayout>

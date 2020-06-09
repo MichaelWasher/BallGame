@@ -11,7 +11,7 @@ public class BrownWhiteBrick extends Brick {
     // Constructor
     public BrownWhiteBrick(Context context, V2 corner, float width, float height) {
         super(context, corner, width, height);
-        BRICK_TYPE = R.drawable.ic_brown_white_brick;
+        BRICK_TYPE = R.drawable.ic_brown_white_brick_no_exclam;
     }
     public BrownWhiteBrick(V2 corner, float width, float height) {
         this(MyApplication.getAppContext(), corner, width, height);
