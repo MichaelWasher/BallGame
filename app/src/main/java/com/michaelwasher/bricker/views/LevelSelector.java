@@ -33,31 +33,11 @@ public class LevelSelector extends AppCompatButton {
         } finally {
             a.recycle();
         }
-    }
-    protected Point getLocation()
-    {
-        int[] tmpLocation = new int[2];
-        this.getLocationOnScreen(tmpLocation);
-        return new Point(tmpLocation[0], tmpLocation[1]);
-    }
-    @Override
-    protected void onDraw(Canvas canvas) {
-        //draw the View
-        int width = this.getMeasuredWidth();
-        int height = this.getMeasuredWidth();
-        int viewWidthHalf = this.getMeasuredWidth()/2;
-        int viewHeightHalf = this.getMeasuredHeight()/2;
-        Point location = getLocation();
-        Drawable sprite = getSprite();
-
-        sprite.setBounds(0, 0,
-                width, height);
-        sprite.draw(canvas);
-
-        paint.setColor(Color.BLACK);
-        paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(50);
-//        canvas.drawText(String.valueOf(levelNumber), viewWidthHalf, viewHeightHalf, paint);
+        this.setBackground(getSprite());
+        if (starLevel != 4)
+            this.setText(String.valueOf(levelNumber));
+        else
+            this.setText("");
     }
 
     private Drawable getSprite(){
@@ -72,6 +52,9 @@ public class LevelSelector extends AppCompatButton {
                 break;
             case 3:
                 sprite = context.getDrawable(R.drawable.ic_level_selector_three_star);
+                break;
+            case 4:
+                sprite = context.getDrawable(R.drawable.ic_level_selector_locked);
                 break;
             default:
                 sprite = context.getDrawable(R.drawable.ic_level_selector_zero_star);
