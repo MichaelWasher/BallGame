@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 
 public abstract class DrawableObject extends View implements DrawableObjectInterface {
 
-    protected Point currentPosition;
     public DrawableObject(Context context) {
         super(context);
     }
@@ -25,7 +24,7 @@ public abstract class DrawableObject extends View implements DrawableObjectInter
 
     @Override
     public void draw(Canvas c, Paint p) {
-
+        super.draw(c);
     }
 
     @Override
@@ -40,8 +39,8 @@ public abstract class DrawableObject extends View implements DrawableObjectInter
 
     @Override
     public void repositionRelative(int x, int y) {
-        currentPosition.x += x;
-        currentPosition.y += y;
+        this.setX(this.getX() + x);
+        this.setY(this.getY() + y);
     }
 
     @Override
@@ -51,7 +50,8 @@ public abstract class DrawableObject extends View implements DrawableObjectInter
 
     @Override
     public void repositionAbsolute(int x, int y) {
-        currentPosition.x = x;
-        currentPosition.y = y;
+        this.setX(this.getX() + x);
+        this.setY(this.getY() + y);
+
     }
 }

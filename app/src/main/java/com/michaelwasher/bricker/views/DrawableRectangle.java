@@ -4,6 +4,7 @@ package com.michaelwasher.bricker.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.michaelwasher.bricker.Resources.V2;
 import com.michaelwasher.bricker.interfaces.Collider;
@@ -11,38 +12,24 @@ import com.michaelwasher.bricker.interfaces.Collider;
 import androidx.annotation.Nullable;
 
 public abstract class DrawableRectangle extends DrawableObject implements Collider {
-//    private float left, right, top, bottom;
+    //    private float left, right, top, bottom;
     protected V2 a, b, c, d;          // The corners
     protected V2 pab, pbd, pdc, pca;  // Perpendiculars to the sides
 
 
     protected float boarderWidth = 5;
+
     public DrawableRectangle(Context context) {
         this(context, null);
     }
 
     public DrawableRectangle(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        //Wrapper Defintion
-        V2 corner = new V2(this.getX(), this.getY());
-        float width = this.getWidth();
-        float height = this.getHeight();
-
-        a = corner;
-        b = V2.add(a, new V2(width, 0));
-        c = V2.add(a, new V2(0, height));
-        d = V2.add(a, new V2(width, height));
-        pab = V2.subtract(a, c).normalize();
-        pbd = V2.subtract(b, a).normalize();
-        pdc = pab.negate();
-        pca = pbd.negate();
-
+        updateValues();
     }
 
 
-
     // TODO Rewrite this whole class to use real names Only 4 valeus are need, top left bottom right
-    // Not drawing misc shapes
     ///////////////////// PRIVATE HELPER METHODS ////////////////////////
 
     // Calculate reflection on one edge
@@ -56,7 +43,7 @@ public abstract class DrawableRectangle extends DrawableObject implements Collid
             if (divisor != 0) {
                 gamma = (direction.y * (pp.x - centre.x) - direction.x * (pp.y - centre.y)) / divisor;
                 if (gamma >= 0 && gamma <= 1) {
-                    lambda = ((pp.y - centre.y) * (pp.x - qq.x) - (pp.x- centre.x) * (pp.y - qq.y)) / divisor;
+                    lambda = ((pp.y - centre.y) * (pp.x - qq.x) - (pp.x - centre.x) * (pp.y - qq.y)) / divisor;
                     if (lambda > 0 && lambda <= 1) {
                         //centre.x += lambda * direction.x;
                         //centre.y += lambda * direction.y;
@@ -108,51 +95,44 @@ public abstract class DrawableRectangle extends DrawableObject implements Collid
     ////////////////// PUBLIC METHODS ////////////////////////////////////
 
     // Reflection of a ball against the rectangle - updates 'direction'
-    @Override public void reflectBall(V2 centre, V2 direction, float radius) {
-        if (reflectLine(centre, direction, radius, a, b, pab)) return;
-        if (reflectLine(centre, direction, radius, b, d, pbd)) return;
-        if (reflectLine(centre, direction, radius, d, c, pdc)) return;
-        if (reflectLine(centre, direction, radius, c, a, pca)) return;
-        if (reflectCurve(centre, direction, radius, b, d, a, pbd, pab)) return;
-        if (reflectCurve(centre, direction, radius, d, c, b, pdc, pbd)) return;
-        if (reflectCurve(centre, direction, radius, c, a, d, pdc, pca)) return;
-        if (reflectCurve(centre, direction, radius, a, b, c, pab, pca)) return;
+    @Override
+    public boolean reflectBall(V2 centre, V2 direction, float radius) {
+        if (reflectLine(centre, direction, radius, a, b, pab)) return true;
+        if (reflectLine(centre, direction, radius, b, d, pbd)) return true;
+        if (reflectLine(centre, direction, radius, d, c, pdc)) return true;
+        if (reflectLine(centre, direction, radius, c, a, pca)) return true;
+        if (reflectCurve(centre, direction, radius, b, d, a, pbd, pab)) return true;
+        if (reflectCurve(centre, direction, radius, d, c, b, pdc, pbd)) return true;
+        if (reflectCurve(centre, direction, radius, c, a, d, pdc, pca)) return true;
+        if (reflectCurve(centre, direction, radius, a, b, c, pab, pca)) return true;
+        return false;
     }
 
     // Does a ball intersect with the rectangle
-    @Override public boolean intersectBall(V2 centre, float radius) {
-        if (inside(centre, radius, a, b, pab)
-            && inside(centre, radius, b, d, pbd)
-            && inside(centre, radius, d, c, pdc)
-            && inside(centre, radius, c, a, pca)) {
-            if (!inside(centre, 0, a, b, pab)) {
-                if (!inside(centre, 0, c, a, pca)) {
-                    if (V2.subtract(centre, a).length() >= radius)
-                        return false;
-                } else if (!inside(centre, 0, b, d, pbd)) {
-                    if (V2.subtract(centre, b).length() >= radius)
-                        return false;
-                }
-            } else if (!inside(centre, 0, d, c, pdc)) {
-                if (!inside(centre, 0, c, a, pca)) {
-                    if (V2.subtract(centre, c).length() >= radius)
-                        return false;
-                } else if (!inside(centre, 0, b, d, pbd)) {
-                    if (V2.subtract(centre, d).length() >= radius)
-                        return false;
-                }
-            }
+    @Override
+    public boolean intersectBall(V2 centre, float radius) {
+        float leftX = centre.x - radius;
+        float rightX = centre.x + radius;
+        float topY = centre.y - radius;
+        float bottomY = centre.y + radius;
+
+        if (rightX >= this.getX()
+                && leftX <= this.getX() + this.getWidth()
+                && bottomY >= this.getY()
+                && topY <= this.getY() + this.getHeight()) {
+            // Collision using AABB method
+            Log.d("Bricker", "intersectBall: There has been a collision");
             return true;
         }
         return false;
     }
+
     //Getters and Setters
-    public V2 getStartPointClone()
-    {
-        return new V2(a.x,a.y);
+    public V2 getStartPointClone() {
+        return new V2(a.x, a.y);
     }
-    public V2 getStartPoint()
-    {
+
+    public V2 getStartPoint() {
         return a;
     }
 
@@ -170,5 +150,25 @@ public abstract class DrawableRectangle extends DrawableObject implements Collid
         //Point D
         d.x += x;
         d.y += y;
+
+        //Set X and Y
+        this.setX(this.getX() + x);
+        this.setY(this.getY() + y);
+    }
+
+
+    public void updateValues() {
+        //Wrapper Defintion
+        V2 corner = new V2(this.getX(), this.getY());
+        float width = this.getWidth();
+        float height = this.getHeight();
+        a = corner;
+        b = V2.add(a, new V2(width, 0));
+        c = V2.add(a, new V2(0, height));
+        d = V2.add(a, new V2(width, height));
+        pab = V2.subtract(a, c).normalize();
+        pbd = V2.subtract(b, a).normalize();
+        pdc = pab.negate();
+        pca = pbd.negate();
     }
 }

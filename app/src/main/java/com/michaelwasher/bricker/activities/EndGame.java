@@ -1,11 +1,11 @@
 package com.michaelwasher.bricker.activities;
 
 import android.os.Bundle;
-
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import com.michaelwasher.bricker.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class EndGame extends AppCompatActivity {
 

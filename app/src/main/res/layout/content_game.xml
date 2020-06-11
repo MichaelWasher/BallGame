@@ -11,39 +11,50 @@
     tools:context="com.michaelwasher.bricker.activities.Game">
 
 
-
-
     <TextView
         android:id="@+id/scoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="15dp"
-        android:textSize="35dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
         android:text="@string/game_state_text_placeholder"
-        android:typeface="sans"
-        />
+        android:textSize="25sp"
+        android:typeface="sans" />
 
     <com.michaelwasher.bricker.Resources.GamePlay
         android:id="@+id/gameWindow"
-        android:layout_width="wrap_content"
-        android:layout_height="510dp"
+        android:layout_width="374dp"
+        android:layout_height="553dp"
+        android:background="#877"
         android:layout_below="@+id/scoreTextView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="22dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginEnd="5dp">
+    <include layout="@layout/level_one" />
+        <com.michaelwasher.bricker.views.Platform
+            android:id="@+id/platform"
+            android:layout_width="120dp"
+            android:layout_height="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dp"
+            android:layout_centerHorizontal="true"
+            />
 
-    <com.michaelwasher.bricker.views.Platform
-        android:id="@+id/platform"
-        android:layout_width="120dp"
-        android:layout_height="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="80dp"
-        android:layout_centerHorizontal="true"
-    />
+        <com.michaelwasher.bricker.views.Ball
+            android:id="@+id/ball"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="450dp"
+            />
+
+    </com.michaelwasher.bricker.Resources.GamePlay>
+
 
 </RelativeLayout>

@@ -2,17 +2,14 @@ package com.michaelwasher.bricker.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 
-import androidx.appcompat.widget.AppCompatButton;
-
 import com.michaelwasher.bricker.R;
+
+import androidx.appcompat.widget.AppCompatButton;
 
 public class LevelSelector extends AppCompatButton {
     //circle and text colors
@@ -20,7 +17,7 @@ public class LevelSelector extends AppCompatButton {
     private Context context;
     private Paint paint;
 
-    public LevelSelector(Context context, AttributeSet attrs){
+    public LevelSelector(Context context, AttributeSet attrs) {
         super(context, attrs);
         Log.d("LevelSelector Created", "A LevelSelector has been created.");
         this.context = context;
@@ -42,10 +39,9 @@ public class LevelSelector extends AppCompatButton {
             this.setText("");
     }
 
-    private Drawable getSprite(){
+    private Drawable getSprite() {
         Drawable sprite;
-        switch(this.starLevel)
-        {
+        switch (this.starLevel) {
             case 1:
                 sprite = context.getDrawable(R.drawable.ic_level_selector_one_star);
                 break;

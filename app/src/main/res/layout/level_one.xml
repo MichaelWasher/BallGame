@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteX="1dp"
+    tools:layout_editor_absoluteY="110dp"
+    android:tag="levelLayout"
+    >
+
+
+    <com.michaelwasher.bricker.views.bricks.BrownWhiteBrick
+        android:id="@+id/brownWhiteBrick8"
+        android:layout_width="42dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="304dp"
+        android:layout_marginTop="39dp"
+        android:background="#FFF"
+        android:padding="0dp" />
+
+    <com.michaelwasher.bricker.views.bricks.BrownWhiteBrick
+        android:id="@+id/brownWhiteBrick1"
+        android:layout_width="42dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="39dp"
+        android:background="#FFF"
+        android:padding="0dp" />
+
+    <com.michaelwasher.bricker.views.bricks.BrownWhiteBrick
+        android:id="@+id/brownWhiteBrick3"
+        android:layout_width="42dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="39dp"
+        android:background="#FFF"
+        android:padding="0dp" />
+
+    <com.michaelwasher.bricker.views.bricks.BrownWhiteBrick
+        android:id="@+id/brownWhiteBrick2"
+        android:layout_width="42dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="91dp"
+        android:layout_marginTop="39dp"
+        android:background="#FFF"
+        android:padding="0dp" />
+
+    <com.michaelwasher.bricker.views.bricks.BrownWhiteBrick
+        android:id="@+id/brownWhiteBrick6"
+        android:layout_width="42dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="133dp"
+        android:layout_marginTop="39dp"
+        android:background="#FFF"
+        android:padding="0dp" />
+
+    <com.michaelwasher.bricker.views.bricks.BrownWhiteBrick
+        android:id="@+id/brownWhiteBrick5"
+        android:layout_width="42dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="39dp"
+        android:background="#FFF"
+        android:padding="0dp" />
+
+    <com.michaelwasher.bricker.views.bricks.BrownWhiteBrick
+        android:id="@+id/brownWhiteBrick4"
+        android:layout_width="42dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="218dp"
+        android:layout_marginTop="39dp"
+        android:background="#FFF"
+        android:padding="0dp" />
+
+    <com.michaelwasher.bricker.views.bricks.BrownWhiteBrick
+        android:id="@+id/brownWhiteBrick"
+        android:layout_width="42dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="261dp"
+        android:layout_marginTop="39dp"
+        android:background="#FFF"
+        android:padding="0dp" />
+
+    <com.michaelwasher.bricker.views.bricks.BrownWhiteBrick
+        android:id="@+id/brownWhiteBrick9"
+        android:layout_width="42dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="347dp"
+        android:layout_marginTop="39dp"
+        android:background="#FFF"
+        android:padding="0dp" />
+
+</RelativeLayout>

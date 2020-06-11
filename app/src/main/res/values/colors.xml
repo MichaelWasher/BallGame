@@ -7,5 +7,5 @@
     <color name="ballColor">#0000FF</color>
     <color name="platformColor">#FF0000</color>
     <color name="textColor">#000000</color>
-    <color name="backgroundColor">#FFFFFF</color>
+    <color name="backgroundColor">#888</color>
 </resources>
