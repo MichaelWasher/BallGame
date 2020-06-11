@@ -1,15 +1,27 @@
 package com.example.ballgame.uiElements;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.AttributeSet;
+import android.view.View;
 
 import com.example.ballgame.interfaces.DrawableObjectInterface;
 
-public abstract class DrawableObject implements DrawableObjectInterface {
+import androidx.annotation.Nullable;
+
+public abstract class DrawableObject extends View implements DrawableObjectInterface {
 
     protected Point currentPosition;
+    public DrawableObject(Context context) {
+        super(context);
+    }
+
+    public DrawableObject(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+    }
 
     @Override
     public void draw(Canvas c, Paint p) {

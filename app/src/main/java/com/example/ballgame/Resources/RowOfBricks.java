@@ -58,7 +58,7 @@ public class RowOfBricks {
 
 	public void draw(Canvas c, Paint paint) {
 		for (Brick b : listOfBricks) {
-			b.draw(c, paint);
+			b.draw(c);
 		}
 	}
 

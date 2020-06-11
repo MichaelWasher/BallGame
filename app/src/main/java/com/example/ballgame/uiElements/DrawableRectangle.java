@@ -3,10 +3,13 @@ package com.example.ballgame.uiElements;
 //Import Statements
 
 import android.content.Context;
+import android.util.AttributeSet;
 
 import com.example.ballgame.MyApplication;
 import com.example.ballgame.Resources.V2;
 import com.example.ballgame.interfaces.Collider;
+
+import androidx.annotation.Nullable;
 
 public abstract class DrawableRectangle extends DrawableObject implements Collider {
 //    private float left, right, top, bottom;
@@ -16,6 +19,34 @@ public abstract class DrawableRectangle extends DrawableObject implements Collid
 
     protected float boarderWidth = 5;
     Context context;
+
+
+
+    public DrawableRectangle(Context context) {
+        this(context, null);
+    }
+
+    public DrawableRectangle(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        //Wrapper Defintion
+        V2 corner = new V2(this.getX(), this.getY());
+        float width = this.getWidth();
+        float height = this.getHeight();
+
+        a = corner;
+        b = V2.add(a, new V2(width, 0));
+        c = V2.add(a, new V2(0, height));
+        d = V2.add(a, new V2(width, height));
+        pab = V2.subtract(a, c).normalize();
+        pbd = V2.subtract(b, a).normalize();
+        pdc = pab.negate();
+        pca = pbd.negate();
+
+        this.context = context;
+    }
+
+
+
     // TODO Rewrite this whole class to use real names Only 4 valeus are need, top left bottom right
     // Not drawing misc shapes
     ///////////////////// PRIVATE HELPER METHODS ////////////////////////
@@ -82,23 +113,6 @@ public abstract class DrawableRectangle extends DrawableObject implements Collid
 
     ////////////////// PUBLIC METHODS ////////////////////////////////////
 
-    // Constructor
-    public DrawableRectangle(Context context, V2 corner, float width, float height) {
-        a = corner;
-        b = V2.add(a, new V2(width, 0));
-        c = V2.add(a, new V2(0, height));
-        d = V2.add(a, new V2(width, height));
-        pab = V2.subtract(a, c).normalize();
-        pbd = V2.subtract(b, a).normalize();
-        pdc = pab.negate();
-        pca = pbd.negate();
-        this.context = context;
-    }
-    public DrawableRectangle(V2 corner, float width, float height) {
-        this(MyApplication.getAppContext(), corner, width, height);
-
-    }
-
     // Reflection of a ball against the rectangle - updates 'direction'
     @Override public void reflectBall(V2 centre, V2 direction, float radius) {
         if (reflectLine(centre, direction, radius, a, b, pab)) return;
@@ -139,14 +153,6 @@ public abstract class DrawableRectangle extends DrawableObject implements Collid
         return false;
     }
     //Getters and Setters
-    public float getWidth()
-    {
-        return b.x - a.x;
-    }
-    public float getHeight()
-    {
-        return a.y - c.y;
-    }
     public V2 getStartPointClone()
     {
         return new V2(a.x,a.y);

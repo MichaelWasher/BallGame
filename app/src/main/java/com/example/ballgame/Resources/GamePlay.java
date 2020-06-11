@@ -277,10 +277,9 @@ public class GamePlay extends DrawingView {
         }
 
         //Create Platform
-        userPlatform = new Platform(MyApplication.getAppContext(), null);
+        userPlatform = new Platform(this.context);
         //Create PlayerBall
-        pinBall = new Ball(new V2(userPlatform.getStartPoint().x + (userPlatform.getWidth() / 2),
-                userPlatform.getStartPoint().y - PINBALL_RADIUS - PINBALL_PADDING), PINBALL_RADIUS);
+        pinBall = new Ball(this.context);
 
     }
 }

@@ -87,7 +87,10 @@ public class Platform extends View {
 
     ////////////////// PUBLIC METHODS ////////////////////////////////////
 
-    // Constructor
+    // Constructors
+    public Platform(Context context) {
+        this(context, null);
+    }
     public Platform(Context context, AttributeSet attrs) {
         super(context, attrs);
         //Wrapper Defintion

@@ -3,7 +3,9 @@ package com.example.ballgame.uiElements;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.AttributeSet;
 
+import com.example.ballgame.R;
 import com.example.ballgame.Resources.V2;
 import com.example.ballgame.interfaces.Collider;
 
@@ -11,19 +13,30 @@ public class Ball extends DrawableObject implements Collider {
     private V2 m;      // The middle
     private float s;   // The radius
     public V2 direction;
-    private Context context;
+    private Paint paint;
 
     ////////////////// PUBLIC METHODS ////////////////////////////////////
 
+    public Ball(Context context, AttributeSet attr){
+        super(context, attr);
+
+        // View Wrapper for DrawableObject
+        V2 corner = new V2(this.getX(), this.getY());
+        float width = this.getWidth();
+        float height = this.getHeight();
+        m = new V2(width/2, height/2);
+        s = width/2;
+
+        // Setup Paint
+        this.paint = new Paint();
+        this.paint.setStyle(Paint.Style.FILL);
+        this.paint.setColor(context.getResources().getColor(R.color.ballColor, null));
+    }
     // Constructor;
-    public Ball(Context context, V2 middle, float radius) {
-        this.context = context;
-        m = middle;
-        s = radius;
+    public Ball(Context context) {
+        this(context, null);
     }
-    public Ball(V2 middle, float radius) {
-        this(null, middle, radius);
-    }
+
     // Reflection of a ball against the circle - updates 'direction'
     @Override public void reflectBall(V2 centre, V2 direction, float radius) {
         if (!intersectBall(centre, radius)) {
@@ -71,7 +84,12 @@ public class Ball extends DrawableObject implements Collider {
     }
     @Override
     // Draw the circle
-    public void draw(Canvas c, Paint p) {
-        c.drawCircle(m.x, m.y, s, p);
+    public void onDraw(Canvas c) {
+        float width = this.getWidth();
+        float height = this.getHeight();
+        m = new V2(width/2, height/2);
+        s = width/2;
+
+        c.drawCircle(m.x, m.y, s, this.paint);
     }
 }

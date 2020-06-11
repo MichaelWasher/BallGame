@@ -1,5 +1,9 @@
 package com.example.ballgame.Resources;
 
+import android.content.Context;
+import android.widget.RelativeLayout;
+
+import com.example.ballgame.MyApplication;
 import com.example.ballgame.uiElements.Brick;
 import com.example.ballgame.uiElements.BrownBlackBrick;
 import com.example.ballgame.uiElements.BrownWhiteBrick;
@@ -14,7 +18,13 @@ public class BrickBuilder {
     public static Brick newRandomBrick(V2 corner, float width, float height)
     {
         //Debug with Test Brick
-        return new BrownWhiteBrick(corner, width, height);
+        // TODO Clean up and remove context refernce
+        Brick brick;
+        Context context = MyApplication.getAppContext();
+        brick = new BrownWhiteBrick(context);
+        brick.setLayoutParams(new RelativeLayout.LayoutParams((int)width, (int)height));
+        return brick;
+//        return new BrownWhiteBrick(corner, width, height);
 
 //        int randomNumber = rnd.nextInt( 100);
 //
