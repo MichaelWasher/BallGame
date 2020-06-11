@@ -4,11 +4,8 @@ import android.content.Context;
 import android.widget.RelativeLayout;
 
 import com.example.ballgame.MyApplication;
-import com.example.ballgame.uiElements.Brick;
-import com.example.ballgame.uiElements.BrownBlackBrick;
-import com.example.ballgame.uiElements.BrownWhiteBrick;
-import com.example.ballgame.uiElements.GreenBlackBrick;
-import com.example.ballgame.uiElements.GreenWhiteBrick;
+import com.example.ballgame.views.bricks.Brick;
+import com.example.ballgame.views.bricks.BrownWhiteBrick;
 
 import java.util.Random;
 

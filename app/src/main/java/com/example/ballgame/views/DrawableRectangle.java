@@ -1,11 +1,10 @@
-package com.example.ballgame.uiElements;
+package com.example.ballgame.views;
 
 //Import Statements
 
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.example.ballgame.MyApplication;
 import com.example.ballgame.Resources.V2;
 import com.example.ballgame.interfaces.Collider;
 
@@ -18,10 +17,6 @@ public abstract class DrawableRectangle extends DrawableObject implements Collid
 
 
     protected float boarderWidth = 5;
-    Context context;
-
-
-
     public DrawableRectangle(Context context) {
         this(context, null);
     }
@@ -42,7 +37,6 @@ public abstract class DrawableRectangle extends DrawableObject implements Collid
         pdc = pab.negate();
         pca = pbd.negate();
 
-        this.context = context;
     }
 
 

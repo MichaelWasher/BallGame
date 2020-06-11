@@ -1,4 +1,4 @@
-package com.example.ballgame.uiElements;
+package com.example.ballgame.views;
 
 import android.content.Context;
 import android.graphics.Canvas;

@@ -3,7 +3,7 @@ package com.example.ballgame.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.example.ballgame.uiElements.Brick;
+import com.example.ballgame.views.bricks.Brick;
 
 import java.util.ArrayList;
 

@@ -11,11 +11,10 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.example.ballgame.MyApplication;
 import com.example.ballgame.R;
 import com.example.ballgame.activities.EndGame;
-import com.example.ballgame.uiElements.Ball;
-import com.example.ballgame.uiElements.Brick;
+import com.example.ballgame.views.Ball;
+import com.example.ballgame.views.bricks.Brick;
 import com.example.ballgame.views.Platform;
 
 import java.util.ArrayList;

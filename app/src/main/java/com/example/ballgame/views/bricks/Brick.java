@@ -1,18 +1,13 @@
-package com.example.ballgame.uiElements;
+package com.example.ballgame.views.bricks;
 
 //Import Statements
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.View;
 
-import com.example.ballgame.MyApplication;
 import com.example.ballgame.R;
-import com.example.ballgame.Resources.DrawingView;
-import com.example.ballgame.Resources.V2;
+import com.example.ballgame.views.DrawableRectangle;
 
 public class Brick extends DrawableRectangle {
 
@@ -29,8 +24,8 @@ public class Brick extends DrawableRectangle {
 
     @Override
     public void onDraw(Canvas canvas) {
-        if(this.context != null){
-            Drawable brickSprite = this.context.getDrawable(BRICK_TYPE);
+        if(this.getContext() != null){
+            Drawable brickSprite = this.getContext().getDrawable(BRICK_TYPE);
             brickSprite.setBounds(0,0, this.getWidth(), this.getHeight());
             brickSprite.draw(canvas);
         }
