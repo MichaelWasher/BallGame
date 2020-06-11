@@ -13,5 +13,7 @@ public class GreenBlackBrick extends Brick {
     public GreenBlackBrick(Context context, AttributeSet attr) {
         super(context, attr);
         this.BRICK_TYPE = R.drawable.ic_green_black_brick;
+        this.setBackground(context.getResources().getDrawable(this.BRICK_TYPE, null));
+
     }
 }

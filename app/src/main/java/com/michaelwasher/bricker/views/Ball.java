@@ -11,35 +11,32 @@ import com.michaelwasher.bricker.Resources.V2;
 import com.michaelwasher.bricker.interfaces.Collider;
 
 public class Ball extends DrawableObject implements Collider {
-    private V2 m;      // The middle
-    private float s;   // The radius
+
     public V2 direction;
     private Paint paint;
-
+    V2 center;
     ////////////////// PUBLIC METHODS ////////////////////////////////////
 
     public Ball(Context context, AttributeSet attr){
         super(context, attr);
         Log.d("Ball Created", "A Ball has been created.");
-        // View Wrapper for DrawableObject
-        V2 corner = new V2(this.getX(), this.getY());
-        float width = this.getWidth();
-        float height = this.getHeight();
-        m = new V2(width/2, height/2);
-        s = width/2;
-
         // Setup Paint
-        this.paint = new Paint();
-        this.paint.setStyle(Paint.Style.FILL);
-        this.paint.setColor(context.getResources().getColor(R.color.ballColor, null));
+        this.center = new V2(0,0);
+        this.setBackground(context.getResources().getDrawable(R.drawable.ic_platform, null));
+
     }
-    // Constructor;
+
+    // Constructor
     public Ball(Context context) {
         this(context, null);
     }
 
     // Reflection of a ball against the circle - updates 'direction'
     @Override public void reflectBall(V2 centre, V2 direction, float radius) {
+        // Build M.x here
+        V2 m = this.getCentre();     // The middle
+        float s = this.getWidth() / 2;   // The radius
+
         if (!intersectBall(centre, radius)) {
             float deltax, deltay, lensq, bb, cc, det, lambda;
             deltax = m.x - centre.x;
@@ -63,34 +60,33 @@ public class Ball extends DrawableObject implements Collider {
 
     // Does a ball intersect with the circle
     @Override public boolean intersectBall(V2 centre, float radius) {
-        return (V2.subtract(centre, m).lengthSquared() < (s + radius) * (s + radius));
+        return (V2.subtract(centre, this.getCentre()).lengthSquared() < (this.getRadius() + radius)
+                * (this.getRadius() + radius));
     }
 
     @Override
     public void repositionRelative(int x, int y) {
-        m.x += x;
-        m.y += y;
+        this.setX(this.getX() + x);
+        this.setY(this.getY() + y);
     }
+
     public void move()
     {
         repositionRelative((int)direction.x, (int)direction.y);
     }
     public V2 getCentre()
     {
-        return this.m;
+        center.x = this.getX() + (this.getWidth() / 2);
+        center.y = this.getY() + (this.getHeight() /2);
+        return center;
     }
     public float getRadius()
     {
-        return this.s;
+        return this.getWidth() / 2;
     }
     @Override
-    // Draw the circle
-    public void onDraw(Canvas c) {
-        float width = this.getWidth();
-        float height = this.getHeight();
-        m = new V2(width/2, height/2);
-        s = width/2;
-
-        c.drawCircle(m.x, m.y, s, this.paint);
+    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        // Force Width / height lock
+        super.onMeasure(widthMeasureSpec,widthMeasureSpec);
     }
 }

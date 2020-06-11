@@ -41,10 +41,10 @@ public class Game extends AppCompatActivity {
         Log.i("key pressed", String.valueOf(event.getKeyCode()));
         if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT && event.getAction() == KeyEvent.ACTION_DOWN){
             Log.i("key pressed", "GO Left");
-            this.mainGame.movement = -10;
+            this.mainGame.movePlatform(-40);
         }else if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT && event.getAction() == KeyEvent.ACTION_DOWN){
             Log.i("key pressed", "GO Right");
-            this.mainGame.movement = 10;
+            this.mainGame.movePlatform(40);
         }
         return super.dispatchKeyEvent(event);
     }

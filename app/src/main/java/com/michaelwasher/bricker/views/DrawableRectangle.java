@@ -4,6 +4,7 @@ package com.michaelwasher.bricker.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.michaelwasher.bricker.Resources.V2;
 import com.michaelwasher.bricker.interfaces.Collider;
@@ -36,9 +37,7 @@ public abstract class DrawableRectangle extends DrawableObject implements Collid
         pbd = V2.subtract(b, a).normalize();
         pdc = pab.negate();
         pca = pbd.negate();
-
     }
-
 
 
     // TODO Rewrite this whole class to use real names Only 4 valeus are need, top left bottom right
@@ -121,27 +120,40 @@ public abstract class DrawableRectangle extends DrawableObject implements Collid
 
     // Does a ball intersect with the rectangle
     @Override public boolean intersectBall(V2 centre, float radius) {
-        if (inside(centre, radius, a, b, pab)
-            && inside(centre, radius, b, d, pbd)
-            && inside(centre, radius, d, c, pdc)
-            && inside(centre, radius, c, a, pca)) {
-            if (!inside(centre, 0, a, b, pab)) {
-                if (!inside(centre, 0, c, a, pca)) {
-                    if (V2.subtract(centre, a).length() >= radius)
-                        return false;
-                } else if (!inside(centre, 0, b, d, pbd)) {
-                    if (V2.subtract(centre, b).length() >= radius)
-                        return false;
-                }
-            } else if (!inside(centre, 0, d, c, pdc)) {
-                if (!inside(centre, 0, c, a, pca)) {
-                    if (V2.subtract(centre, c).length() >= radius)
-                        return false;
-                } else if (!inside(centre, 0, b, d, pbd)) {
-                    if (V2.subtract(centre, d).length() >= radius)
-                        return false;
-                }
-            }
+//        if (inside(centre, radius, a, b, pab)
+//            && inside(centre, radius, b, d, pbd)
+//            && inside(centre, radius, d, c, pdc)
+//            && inside(centre, radius, c, a, pca)) {
+//            if (!inside(centre, 0, a, b, pab)) {
+//                if (!inside(centre, 0, c, a, pca)) {
+//                    if (V2.subtract(centre, a).length() >= radius)
+//                        return false;
+//                } else if (!inside(centre, 0, b, d, pbd)) {
+//                    if (V2.subtract(centre, b).length() >= radius)
+//                        return false;
+//                }
+//            } else if (!inside(centre, 0, d, c, pdc)) {
+//                if (!inside(centre, 0, c, a, pca)) {
+//                    if (V2.subtract(centre, c).length() >= radius)
+//                        return false;
+//                } else if (!inside(centre, 0, b, d, pbd)) {
+//                    if (V2.subtract(centre, d).length() >= radius)
+//                        return false;
+//                }
+//            }
+//            return true;
+//        }
+        float leftX = centre.x - radius;
+        float rightX = centre.x + radius;
+        float topY = centre.y - radius;
+        float bottomY = centre.y + radius;
+
+        if(rightX >= this.getX()
+        && leftX <= this.getX() + this.getWidth()
+        && bottomY >= this.getY()
+        && topY <= this.getY() + this.getHeight()){
+            // Collision using AABB method
+            Log.d("Bricker", "intersectBall: There has been a collision");
             return true;
         }
         return false;
@@ -170,5 +182,11 @@ public abstract class DrawableRectangle extends DrawableObject implements Collid
         //Point D
         d.x += x;
         d.y += y;
+
+        //Set X and Y
+        this.setX(this.getX() + x);
+        this.setY(this.getY() + y);
     }
+
+
 }

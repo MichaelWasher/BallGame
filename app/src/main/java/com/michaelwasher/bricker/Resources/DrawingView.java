@@ -6,8 +6,9 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.RelativeLayout;
 
-public class DrawingView extends View {
+public class DrawingView extends RelativeLayout {
     protected Paint paint = new Paint();
     protected int drawNum = 0;
 

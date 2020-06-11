@@ -22,14 +22,6 @@ public class Brick extends DrawableRectangle {
         super(context, attr);
         this.BRICK_TYPE = R.drawable.ic_brown_white_brick;
         Log.d("Brick Created", "A brick has been created.");
-    }
-
-    @Override
-    public void onDraw(Canvas canvas) {
-        if(this.getContext() != null){
-            Drawable brickSprite = this.getContext().getDrawable(BRICK_TYPE);
-            brickSprite.setBounds(0,0, this.getWidth(), this.getHeight());
-            brickSprite.draw(canvas);
-        }
+        this.setBackground(context.getResources().getDrawable(this.BRICK_TYPE, null));
     }
 }
