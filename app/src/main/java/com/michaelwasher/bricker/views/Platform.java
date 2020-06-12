@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.michaelwasher.bricker.R;
@@ -89,6 +90,7 @@ public class Platform extends View {
     }
     public Platform(Context context, AttributeSet attrs) {
         super(context, attrs);
+        Log.d("Platform Created", "A platform has been created.");
         //Wrapper Defintion
         V2 corner = new V2(this.getX(), this.getY());
         float width = this.getWidth();

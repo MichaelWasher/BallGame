@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.michaelwasher.bricker.R;
 import com.michaelwasher.bricker.Resources.V2;
@@ -19,7 +20,7 @@ public class Ball extends DrawableObject implements Collider {
 
     public Ball(Context context, AttributeSet attr){
         super(context, attr);
-
+        Log.d("Ball Created", "A Ball has been created.");
         // View Wrapper for DrawableObject
         V2 corner = new V2(this.getX(), this.getY());
         float width = this.getWidth();

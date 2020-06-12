@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -21,6 +22,7 @@ public class LevelSelector extends AppCompatButton {
 
     public LevelSelector(Context context, AttributeSet attrs){
         super(context, attrs);
+        Log.d("LevelSelector Created", "A LevelSelector has been created.");
         this.context = context;
         this.paint = new Paint();
 

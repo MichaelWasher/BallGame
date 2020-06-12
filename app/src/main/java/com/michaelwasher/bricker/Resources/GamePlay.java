@@ -61,17 +61,15 @@ public class GamePlay extends DrawingView {
     String LIVES_TEXT = "Lives: %s";
     Context context;
 
-    public GamePlay(Context context, LevelStartInformation startInfo) {
-        super(context);
-        this.context = context;
-    }
     public GamePlay(Context context, AttributeSet attr) {
         super(context, attr);
+        Log.d("GamePlay Created", "A GamePlay has been created.");
         this.context = context;
     }
 
     public void startGame(LevelStartInformation startInfo)
     {
+        
         //Initialize all Class-Scope values
         setStartInformation(startInfo, this.context);
         rowsOfBricks = new ArrayList<RowOfBricks>();
