@@ -1,7 +1,9 @@
 package com.michaelwasher.bricker.Resources;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -24,13 +26,16 @@ public class GamePlay extends DrawingView {
     protected int collisionAccelerator;
 
     protected int numberOfLivesLeft;
-    protected int numberOfBrickRows;
     protected float EPSILON = 0.01f;
 
     //Logic Control Variables
     protected boolean gameStarted = false;
     protected int score = 0;
     protected int scoreMultiplier = 10;
+
+
+    V2 ballStartPosition;
+    V2 platformStartPosition;
 
     //Displayable Objects
     ArrayList<Brick> allBricks;
@@ -123,8 +128,8 @@ public class GamePlay extends DrawingView {
         //player has died
         numberOfLivesLeft--;
         Log.d("Life Lost", "A life was lost.");
-//        if (numberOfLivesLeft > 0)
-//            resetGame();
+        if (numberOfLivesLeft > 0)
+            resetGame();
 //        else
 //            endGame();
     }
@@ -133,11 +138,12 @@ public class GamePlay extends DrawingView {
     //Game Logic and Management
     protected void resetGame() {
         //Reset all bricks, reset ball, reset platform.
-//        this.allBricks
-//        createLevel();
-//        startGame();
+        for(Brick b : this.allBricks){
+            b.setVisibility(View.VISIBLE);
+        }
+        this.userPlatform.reposition((int)this.platformStartPosition.x, (int)this.platformStartPosition.y);
+        this.pinBall.reposition((int)this.ballStartPosition.x, (int)this.ballStartPosition.y);
     }
-
 
     //Collision Detection
     protected void checkPlatformCollision() {
@@ -155,10 +161,10 @@ public class GamePlay extends DrawingView {
             pinBall.direction.y = -pinBall.direction.y;
 
         // TODO DEBUG Bounce off the ground
-        if (pinBall.getCentre().y + pinBall.getRadius() > this.getHeight()) {
-            pinBall.direction.y = -pinBall.direction.y;
-            return;
-        }
+//        if (pinBall.getCentre().y + pinBall.getRadius() > this.getHeight()) {
+//            pinBall.direction.y = -pinBall.direction.y;
+//            return;
+//        }
 
         //Check if Played has missed the ball
         if (pinBall.getCentre().y + pinBall.getRadius() > this.getHeight()) {
@@ -210,7 +216,8 @@ public class GamePlay extends DrawingView {
         //Check the walls
         if ((userPlatform.getStartPoint().x + userPlatform.getWidth() + movement) > this.getWidth() ||
                 userPlatform.getStartPoint().x + movement < 0) {
-//            Move back if going off screen
+            // Move back if going off screen
+            // TODO if close to wall, move to the wall
             movement = 0;
         }
 
@@ -226,11 +233,14 @@ public class GamePlay extends DrawingView {
         numberOfLivesLeft = startInfo.startNumberOfLives;
     }
 
-
     private void createLevel() {
         //Get Platform and Ball
         userPlatform = this.findViewById(R.id.platform);
         pinBall = this.findViewById(R.id.ball);
+
+        this.ballStartPosition = new V2(pinBall.getX(), pinBall.getY());
+        this.platformStartPosition = new V2(userPlatform.getX(), userPlatform.getY());
+
         //Get brick layout
         //TODO DONT forget the bricks are inside another relative layout
         RelativeLayout layout = this.findViewWithTag("levelLayout");

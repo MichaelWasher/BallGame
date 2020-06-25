@@ -156,6 +156,25 @@ public abstract class DrawableRectangle extends DrawableObject implements Collid
         this.setY(this.getY() + y);
     }
 
+    public void reposition(int x, int y) {
+        //Point A
+        a.x += x;
+        a.y += y;
+        //Point B
+        b.x += x;
+        b.y += y;
+        //Point C
+        c.x += x;
+        c.y += y;
+        //Point D
+        d.x += x;
+        d.y += y;
+
+        //Set X and Y
+        this.setX(this.getX() + x);
+        this.setY(this.getY() + y);
+    }
+
 
     public void updateValues() {
         //Wrapper Defintion

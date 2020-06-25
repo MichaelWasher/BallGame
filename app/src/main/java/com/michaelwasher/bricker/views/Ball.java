@@ -73,6 +73,11 @@ public class Ball extends DrawableObject implements Collider {
         this.setY(this.getY() + y);
     }
 
+    public void reposition(int x, int y) {
+        this.setX(x);
+        this.setY(y);
+    }
+
     public void move() {
         repositionRelative((int) direction.x, (int) direction.y);
     }
