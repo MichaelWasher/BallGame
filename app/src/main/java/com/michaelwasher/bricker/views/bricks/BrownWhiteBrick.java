@@ -13,7 +13,7 @@ public class BrownWhiteBrick extends Brick {
     public BrownWhiteBrick(Context context, AttributeSet attr) {
         super(context, attr);
         //TODO replace
-        this.BRICK_TYPE = R.drawable.ic_group_20;
+        this.BRICK_TYPE = R.drawable.ic_brown_white_brick;
         this.setBackground(context.getResources().getDrawable(this.BRICK_TYPE, null));
 
     }

@@ -16,12 +16,15 @@ public class LevelSelector extends AppCompatButton {
     private int starLevel, levelNumber;
     private Context context;
     private Paint paint;
+    private boolean isLocked;
 
     public LevelSelector(Context context, AttributeSet attrs) {
         super(context, attrs);
         Log.d("LevelSelector Created", "A LevelSelector has been created.");
         this.context = context;
         this.paint = new Paint();
+
+        this.isLocked = this.starLevel == 4;
 
         // Populate class based on Attributes
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs,
@@ -59,6 +62,10 @@ public class LevelSelector extends AppCompatButton {
                 break;
         }
         return sprite;
+    }
+
+    public boolean getLocked(){
+        return this.isLocked;
     }
 
 }

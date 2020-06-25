@@ -2,6 +2,10 @@ package com.michaelwasher.bricker.Resources;
 
 import android.graphics.Canvas;
 import android.util.Log;
+import android.widget.TextView;
+
+import com.michaelwasher.bricker.R;
+import com.michaelwasher.bricker.activities.GameActivity;
 
 public class GameLoop extends Thread {
     public static Canvas canvas;
@@ -9,12 +13,37 @@ public class GameLoop extends Thread {
     private int FPS = 30;
     private double avgFPS;
     GamePlay game;
-
+    GameActivity gameActivity;
     boolean running;
 
-    public GameLoop(GamePlay game) {
+    public GameLoop(GameActivity gameActivity, GamePlay game) {
         super();
         this.game = game;
+        this.gameActivity = gameActivity;
+    }
+    //Game Loop
+    protected String getScoreText() {
+
+        String scorePlaceholder = this.gameActivity.getResources().getString(R.string.game_state_text_format);
+        return String.format(scorePlaceholder, game.getLevel(), game.getScore(), game.getLives());
+    }
+    protected void updateScoreTextView(){
+        // If no values have been updated then no need to publish
+        if(!game.getUpdated())
+            return;
+
+        final TextView scoreTextView = this.gameActivity.findViewById(R.id.scoreTextView);
+        final String scoreText = this.getScoreText();
+        this.gameActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(scoreTextView != null && scoreText != null) {
+                    scoreTextView.setText(scoreText);
+                    scoreTextView.invalidate();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -31,9 +60,12 @@ public class GameLoop extends Thread {
             waitTime = targetTime - timeMillis;
 
             try {
-                //TODO  Perform update and invalidate!
+                //Perform update and invalidate
                 this.game.onUpdate();
-                this.game.invalidate();
+                this.updateScoreTextView();
+                if(running) {
+                    this.game.invalidate();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 throw e;

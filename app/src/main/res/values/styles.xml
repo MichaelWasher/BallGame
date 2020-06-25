@@ -13,5 +13,31 @@
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Base_Brick_Row">
+        <item name="android:layout_width">42dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_alignParentStart">false</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+
+    </style>
+
+    <style name="Brick_Style" parent="Base_Brick_Row">
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_marginTop">39dp</item>
+    </style>
+    <style name="Brick_Style_Row" parent="Base_Brick_Row">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_below">@id/brownWhiteBrick1</item>
+    </style>
+    <style name="Brick_Style_Row2" parent="Base_Brick_Row">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_below">@id/brownWhiteBrick11</item>
+    </style>
+    <style name="Brick_Style_Row3" parent="Base_Brick_Row">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_below">@id/brownWhiteBrick21</item>
+    </style>
+
 
 </resources>

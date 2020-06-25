@@ -8,10 +8,10 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@drawable/ic_brick_background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_main" tools:context=".activities.MainActivity">
+    tools:showIn="@layout/activity_splash" tools:context=".activities.SplashActivity">
 
     <Button
-        android:id="@+id/WelcomeScreenOnClickListener"
+        android:id="@+id/SplashFullScreenListener"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00000000"
@@ -26,8 +26,8 @@
         android:id="@+id/textView"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/backgroundColor"
-        android:textSize="35dp" />
+        android:textColor="#FFFFFF"
+        android:textSize="35sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/intro_subtitle"
         android:id="@+id/textView2"
-        android:textColor="#ffffff"
+        android:textColor="@color/backgroundColor"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 

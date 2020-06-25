@@ -10,13 +10,14 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
+import com.michaelwasher.bricker.MyApplication;
 import com.michaelwasher.bricker.R;
 import com.michaelwasher.bricker.Resources.GamePlay;
 import com.michaelwasher.bricker.Resources.LevelStartInformation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Game extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
 
     GamePlay mainGame;
 
@@ -25,7 +26,7 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-//        setupSensor();
+        setupSensor();
         //Gather Level Information
         Intent i = getIntent();
         LevelStartInformation lsi = (LevelStartInformation) i.getSerializableExtra("LevelStartInformation");
@@ -35,7 +36,16 @@ public class Game extends AppCompatActivity {
 
         //Keep display awake
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
+    }
+    public void endGame() {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(MyApplication.getAppContext(), EndGameActivity.class);
+                i.putExtra("FinalScore", 10);
+                MyApplication.getAppContext().startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -51,32 +61,30 @@ public class Game extends AppCompatActivity {
         return super.dispatchKeyEvent(event);
     }
 
-//    public void setupSensor() {
-//
-//        // Deploy the Accelerometer
-//        SensorManager sensorManager =
-//                (SensorManager) getSystemService(SENSOR_SERVICE);
-//        Sensor accelSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-//
-//        SensorEventListener accelerometerSensorListener = new SensorEventListener() {
-//            @Override
-//            public void onSensorChanged(SensorEvent sensorEvent) {
-//                // More code goes here
-//                float yRotationValue = sensorEvent.values[0] * -1;
-//                mainGame.movement = (int) yRotationValue;
-//            }
-//
-//            @Override
-//            public void onAccuracyChanged(Sensor sensor, int i) {
-//                Log.i("AccuracyChanges", "Accel Changed");
-//            }
-//        };
-//
-//        // Register the listener
-//        sensorManager.registerListener(accelerometerSensorListener,
-//                accelSensor, SensorManager.SENSOR_DELAY_GAME);
-//
-//    }
+    public void setupSensor() {
 
+        // Deploy the Accelerometer
+        SensorManager sensorManager =
+                (SensorManager) getSystemService(SENSOR_SERVICE);
+        Sensor accelSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+        SensorEventListener accelerometerSensorListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent sensorEvent) {
+                // More code goes here
+                float yRotationValue = sensorEvent.values[0] * -1;
+                mainGame.movement = (int) yRotationValue;
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int i) {
+                Log.i("AccuracyChanges", "Accel Changed");
+            }
+        };
+
+        // Register the listener
+        sensorManager.registerListener(accelerometerSensorListener,
+                accelSensor, SensorManager.SENSOR_DELAY_GAME);
+
+    }
 }

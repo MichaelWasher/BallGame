@@ -8,7 +8,7 @@
     <string name="previous">previous</string>
     <string name="intro_title">Welcome to Bricker!</string>
     <string name="intro_subtitle">Tap Anywhere to Continue</string>
-    <string name="game_state_text_placeholder">Score: 10 | Lives: 10</string>
-    <string name="game_state_text_format">Score: %d | Lives: %d</string>
+    <string name="game_state_text_placeholder">Level 1 | Score: 10 | Lives: 10</string>
+    <string name="game_state_text_format">Level %d | Score: %d | Lives: %d</string>
 
 </resources>

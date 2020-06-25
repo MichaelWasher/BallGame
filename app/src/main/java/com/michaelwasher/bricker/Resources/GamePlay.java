@@ -1,19 +1,22 @@
 package com.michaelwasher.bricker.Resources;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.michaelwasher.bricker.R;
-import com.michaelwasher.bricker.activities.EndGame;
+import com.michaelwasher.bricker.activities.GameActivity;
 import com.michaelwasher.bricker.views.Ball;
 import com.michaelwasher.bricker.views.Platform;
 import com.michaelwasher.bricker.views.bricks.Brick;
 
 import java.util.ArrayList;
+
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class GamePlay extends DrawingView {
     //Class-Scope Variables
@@ -24,7 +27,6 @@ public class GamePlay extends DrawingView {
     protected int collisionAccelerator;
 
     protected int numberOfLivesLeft;
-    protected int numberOfBrickRows;
     protected float EPSILON = 0.01f;
 
     //Logic Control Variables
@@ -32,24 +34,46 @@ public class GamePlay extends DrawingView {
     protected int score = 0;
     protected int scoreMultiplier = 10;
 
+    protected int levelResource;
+    protected int levelId;
+
+    V2 ballStartPosition;
+    V2 platformStartPosition;
+
+    boolean updated = false;
+
+    public int getLives(){
+        return this.numberOfLivesLeft;
+    }
+
+    public boolean getUpdated(){
+        return updated;
+    }
+    public int getScore(){
+        return this.score;
+    }
+    public int getLevel(){
+        return this.levelId;
+    }
     //Displayable Objects
     ArrayList<Brick> allBricks;
     Ball pinBall;
     Platform userPlatform;
 
     //String for Text
-    String SCORE_TEXT = "Score: %d";
-    String LIVES_TEXT = "Lives: %s";
     Context context;
 
     GameLoop gameLoop;
-    int levelLayout = R.layout.level_one;
 
     public GamePlay(Context context, AttributeSet attr) {
         super(context, attr);
         Log.d("GamePlay Created", "A GamePlay has been created.");
         this.context = context;
-        gameLoop = new GameLoop(this);
+        gameLoop = new GameLoop(((GameActivity)context), this);
+
+        // Set up the level include
+
+
     }
 
 
@@ -60,12 +84,7 @@ public class GamePlay extends DrawingView {
         startGame();
     }
 
-    //Game Loop
-    protected String getScoreText(int newScore, int newLifeCount) {
 
-        String scorePlaceholder = context.getResources().getString(R.string.game_state_text_format);
-        return String.format(scorePlaceholder, newScore, newLifeCount);
-    }
 
     @Override
     public void invalidate() {
@@ -87,6 +106,9 @@ public class GamePlay extends DrawingView {
     }
 
     protected void onUpdate() {
+        int tmpScore = this.score;
+        int tmpLives = this.numberOfLivesLeft;
+
         if (this.getWidth() <= 0)
             return;
         //Move Ball
@@ -94,13 +116,14 @@ public class GamePlay extends DrawingView {
         // Requires for keeping a,b,c,d in sync
         if (this.userPlatform != null)
             userPlatform.updateValues();
+
         //Check for Collision with Bricks
         checkBrickCollision();
         checkBoundaryCollision();
         checkPlatformCollision();
 
+        this.updated = tmpScore != this.score || tmpLives != this.numberOfLivesLeft;
     }
-
 
     //Game Logic
     protected void startGame() {
@@ -113,9 +136,8 @@ public class GamePlay extends DrawingView {
     }
 
     protected void endGame() {
-        Intent i = new Intent(getContext(), EndGame.class);
-        i.putExtra("FinalScore", score);
-        getContext().startActivity(i);
+        gameLoop.setRunning(false);
+        ((GameActivity)this.context).endGame();
     }
 
     //Game Progress
@@ -123,21 +145,28 @@ public class GamePlay extends DrawingView {
         //player has died
         numberOfLivesLeft--;
         Log.d("Life Lost", "A life was lost.");
-//        if (numberOfLivesLeft > 0)
-//            resetGame();
-//        else
-//            endGame();
+        if (numberOfLivesLeft > 0)
+            resetGame();
+        else
+            endGame();
     }
 
 
     //Game Logic and Management
     protected void resetGame() {
         //Reset all bricks, reset ball, reset platform.
-//        this.allBricks
-//        createLevel();
-//        startGame();
+        for(final Brick b : this.allBricks){
+            ((Activity)this.context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    b.setVisibility(View.VISIBLE);
+                }
+            });
+        }
+        this.userPlatform.reposition((int)this.platformStartPosition.x, (int)this.platformStartPosition.y);
+        this.pinBall.reposition((int)this.ballStartPosition.x, (int)this.ballStartPosition.y);
+        this.score = 0;
     }
-
 
     //Collision Detection
     protected void checkPlatformCollision() {
@@ -154,11 +183,11 @@ public class GamePlay extends DrawingView {
         if (pinBall.getCentre().y - pinBall.getRadius() < 0)
             pinBall.direction.y = -pinBall.direction.y;
 
-        // TODO DEBUG Bounce off the ground
-        if (pinBall.getCentre().y + pinBall.getRadius() > this.getHeight()) {
-            pinBall.direction.y = -pinBall.direction.y;
-            return;
-        }
+        // DEBUG Bounce off the ground
+//        if (pinBall.getCentre().y + pinBall.getRadius() > this.getHeight()) {
+//            pinBall.direction.y = -pinBall.direction.y;
+//            return;
+//        }
 
         //Check if Played has missed the ball
         if (pinBall.getCentre().y + pinBall.getRadius() > this.getHeight()) {
@@ -173,7 +202,7 @@ public class GamePlay extends DrawingView {
         if (this.allBricks == null)
             return false;
 
-        for (Brick b : this.allBricks) {
+        for (final Brick b : this.allBricks) {
             // If brick is not visible; ignore
             if(b.getVisibility() == View.INVISIBLE){
                 continue;
@@ -190,8 +219,15 @@ public class GamePlay extends DrawingView {
                 }
 
                 //Remove Brick and increase players score
-                b.setVisibility(View.INVISIBLE);
+                ((Activity)this.context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        b.setVisibility(View.INVISIBLE);
+                    }
+                });
+
                 score += scoreMultiplier;
+                Log.i("Score Changed: ", String.valueOf(this.score));
                 return true;
             }
         }
@@ -210,7 +246,8 @@ public class GamePlay extends DrawingView {
         //Check the walls
         if ((userPlatform.getStartPoint().x + userPlatform.getWidth() + movement) > this.getWidth() ||
                 userPlatform.getStartPoint().x + movement < 0) {
-//            Move back if going off screen
+            // Move back if going off screen
+            // TODO if close to wall, move to the wall
             movement = 0;
         }
 
@@ -221,19 +258,31 @@ public class GamePlay extends DrawingView {
     //Initial Design
     private void setStartInformation(LevelStartInformation startInfo, Context context) {
         //Set Starting Values from LevelStartInfo
-        startSpeed = currentSpeed = startInfo.startSpeed;
-        collisionAccelerator = startInfo.collisionAccelerator;
-        numberOfLivesLeft = startInfo.startNumberOfLives;
-    }
+        this.startSpeed = currentSpeed = startInfo.startSpeed;
+        this.collisionAccelerator = startInfo.collisionAccelerator;
+        this.numberOfLivesLeft = startInfo.startNumberOfLives;
+        this.score = 0;
+        this.levelId = startInfo.levelNumber;
+        this.levelResource = startInfo.levelResource;
 
+    }
 
     private void createLevel() {
         //Get Platform and Ball
         userPlatform = this.findViewById(R.id.platform);
         pinBall = this.findViewById(R.id.ball);
-        //Get brick layout
-        //TODO DONT forget the bricks are inside another relative layout
-        RelativeLayout layout = this.findViewWithTag("levelLayout");
-        this.allBricks = BrickBuilder.GatherBricks(layout);
+
+        this.ballStartPosition = new V2(pinBall.getX(), pinBall.getY());
+        this.platformStartPosition = new V2(userPlatform.getX(), userPlatform.getY());
+
+        // Set the brick layout
+        LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.level_one, this);
+        RelativeLayout levelLayout = this.findViewWithTag("levelLayout");
+        this.removeView(levelLayout);
+        this.addView(levelLayout,0);
+
+        // Set List of Bricks
+        this.allBricks = BrickBuilder.GatherBricks(levelLayout);
     }
 }

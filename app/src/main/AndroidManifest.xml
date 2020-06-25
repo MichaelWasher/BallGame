@@ -13,7 +13,7 @@
         android:name="com.michaelwasher.bricker.MyApplication"
         >
         <activity
-            android:name="com.michaelwasher.bricker.activities.MainActivity"
+            android:name="com.michaelwasher.bricker.activities.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -22,18 +22,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.michaelwasher.bricker.activities.LevelSelector"
+            android:name="com.michaelwasher.bricker.activities.LevelSelectorActivity"
             android:label="@string/title_activity_level_selector"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name="com.michaelwasher.bricker.activities.Game"
+            android:name="com.michaelwasher.bricker.activities.GameActivity"
             android:label="@string/title_activity_game"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name="com.michaelwasher.bricker.activities.EndGame"
+            android:name="com.michaelwasher.bricker.activities.EndGameActivity"
             android:label="@string/title_activity_end_game"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>

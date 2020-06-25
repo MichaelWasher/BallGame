@@ -5,16 +5,15 @@ import android.util.AttributeSet;
 
 import com.michaelwasher.bricker.R;
 
-public class BrownBlackBrick extends Brick {
-    // Constructor
-    public BrownBlackBrick(Context context) {
+public class BrownWhiteBrickPowered extends Brick {
+    public BrownWhiteBrickPowered(Context context) {
         this(context, null);
     }
 
-    public BrownBlackBrick(Context context, AttributeSet attr) {
+    public BrownWhiteBrickPowered(Context context, AttributeSet attr) {
         super(context, attr);
-        this.BRICK_TYPE = R.drawable.ic_brown_black_brick;
+        //TODO replace
+        this.BRICK_TYPE = R.drawable.ic_brown_white_brick_powered;
         this.setBackground(context.getResources().getDrawable(this.BRICK_TYPE, null));
     }
-
 }
